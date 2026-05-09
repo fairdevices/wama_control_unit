@@ -1,0 +1,6 @@
+# Metadaten nach DIN SPEC 3105-2
+project-name: "WAMA Control Unit"
+project-version: "1.1.0"
+description: "Universal control unit for washing machine automation"
+contact: "https://github.com/DEIN_NUTZERNAME"
+license:
