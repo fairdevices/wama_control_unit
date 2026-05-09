@@ -1,1 +1,8 @@
-
+context: "https://raw.githubusercontent.com/OPEN-NEXT/OKH-Metadata-Standard/master/OKH-Metadata-Standard.schema.json"
+project-name: "WAMA Control Unit"
+project-version: "1.1.0"
+licensor: "FairDevices"
+documentation-license: "CC-BY-4.0"
+hardware-license: "CERN-OHL-S-2.0"
+software-license: "GPL-3.0-or-later"
+standard-compliance: "DIN SPEC 3105"
