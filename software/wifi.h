@@ -1,1 +1,3 @@
-wifi.h
+#pragma once
+
+void initWifi();wifi.h
