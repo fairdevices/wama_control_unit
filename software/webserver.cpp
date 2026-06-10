@@ -1,76 +1,46 @@
-#include <ESP8266WebServer.h>
-
 #include "webserver.h"
+
+#include <ESP8266WebServer.h>
+#include "config.h"
 #include "ui.h"
 #include "washingMachine.h"
 
-ESP8266WebServer server(80);
+namespace {
+ESP8266WebServer server(WEB_SERVER_PORT);
 
-void handleRoot()
-{
-    server.setContentLength(CONTENT_LENGTH_UNKNOWN);
-
-    server.send(
-        200,
-        "text/html",
-        ""
-    );
-
-    server.sendContent_P(pageTop);
-    server.sendContent_P(logoSvg);
-    server.sendContent_P(pageBottom);
+void sendPage() {
+  server.setContentLength(CONTENT_LENGTH_UNKNOWN);
+  server.send(200, "text/html", "");
+  server.sendContent_P(pageTop);
+  server.sendContent_P(logoSvg);
+  server.sendContent_P(pageBottom);
 }
 
-void handlePowerOn()
-{
-    powerOn();
-
-    server.send(
-        200,
-        "text/plain",
-        "OK"
-    );
+void sendState() {
+  server.send(200, "application/json", washingMachineStateJson());
 }
 
-void handlePowerOff()
-{
-    powerOff();
-
-    server.send(
-        200,
-        "text/plain",
-        "OK"
-    );
+void powerOn() {
+  setPower(true);
+  sendState();
 }
 
-void initWebServer()
-{
-    server.on(
-        "/",
-        HTTP_GET,
-        handleRoot
-    );
-
-    server.on(
-        "/on",
-        HTTP_GET,
-        handlePowerOn
-    );
-
-    server.on(
-        "/off",
-        HTTP_GET,
-        handlePowerOff
-    );
-
-    server.begin();
-
-    Serial.println(
-        "Webserver gestartet"
-    );
+void powerOff() {
+  setPower(false);
+  sendState();
+}
 }
 
-void handleWebServer()
-{
-    server.handleClient();
+void initWebServer() {
+  server.on("/", HTTP_GET, sendPage);
+  server.on("/api/state", HTTP_GET, sendState);
+  server.on("/api/power/on", HTTP_POST, powerOn);
+  server.on("/api/power/off", HTTP_POST, powerOff);
+
+  server.begin();
+  Serial.println("Webserver gestartet");
+}
+
+void handleWebServerClient() {
+  server.handleClient();
 }
