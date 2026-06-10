@@ -1,46 +1,42 @@
 #include "washingMachine.h"
 
-WashingMachineState machine =
-{
-    false,
-    "",
-    "",
-    "",
-    false,
-    false
-};
-
-void powerOn()
-{
-    machine.power = true;
+namespace {
+WashingMachineState state;
 }
 
-void powerOff()
-{
-    machine.power = false;
+void washingMachineInit() {
+  state.powerOn = false;
+  state.prewash = false;
+  state.extraRinsing = false;
+  state.program = "";
+  state.temperature = "";
+  state.spinningSpeed = "";
 }
 
-void setProgram(String value)
-{
-    machine.program = value;
+void setPower(bool enabled) {
+  state.powerOn = enabled;
 }
 
-void setTemperature(String value)
-{
-    machine.temperature = value;
+bool isPowerOn() {
+  return state.powerOn;
 }
 
-void setSpinningSpeed(String value)
-{
-    machine.spinningSpeed = value;
+WashingMachineState getWashingMachineState() {
+  return state;
 }
 
-void setPrewash(bool value)
-{
-    machine.prewash = value;
+void setWashingMachineState(const WashingMachineState& newState) {
+  state = newState;
 }
 
-void setExtraRinse(bool value)
-{
-    machine.extraRinse = value;
+String washingMachineStateJson() {
+  String json = "{";
+  json += "\"powerOn\":" + String(state.powerOn ? "true" : "false") + ",";
+  json += "\"prewash\":" + String(state.prewash ? "true" : "false") + ",";
+  json += "\"extraRinsing\":" + String(state.extraRinsing ? "true" : "false") + ",";
+  json += "\"program\":\"" + state.program + "\",";
+  json += "\"temperature\":\"" + state.temperature + "\",";
+  json += "\"spinningSpeed\":\"" + state.spinningSpeed + "\"";
+  json += "}";
+  return json;
 }
