@@ -1,4 +1,7 @@
-#pragma once
+#ifndef WEBSERVER_H
+#define WEBSERVER_H
 
 void initWebServer();
-void handleWebServer();
+void handleWebServerClient();
+
+#endif
