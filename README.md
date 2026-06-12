@@ -16,7 +16,10 @@ This project is currently under active development.
 
 ## Repository Structure
 
-/source     Firmware source code
-/hardware   Schematics and PCB files
-/docs       Documentation
-/tools      Utilities and helper scripts
+`software/`     Firmware source code
+
+`hardware/`   Schematics and PCB files
+
+`doc/`       Documentation
+
+`production/`      Utilities and helper scripts
