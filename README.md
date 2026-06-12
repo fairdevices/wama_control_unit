@@ -22,4 +22,4 @@ This project is currently under active development.
 
 `doc/`       Documentation
 
-`production/`      Utilities and helper scripts
+`production/`      Files necessary for the hardware realization (drill files, etc...)
