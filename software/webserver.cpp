@@ -20,22 +20,22 @@ void sendState() {
   server.send(200, "application/json", washingMachineStateJson());
 }
 
-void powerOn() {
+void handlePowerOn() {
   setPower(true);
   sendState();
 }
 
-void powerOff() {
+void handlePowerOff() {
   setPower(false);
   sendState();
 }
-}
+}  // namespace
 
 void initWebServer() {
   server.on("/", HTTP_GET, sendPage);
   server.on("/api/state", HTTP_GET, sendState);
-  server.on("/api/power/on", HTTP_POST, powerOn);
-  server.on("/api/power/off", HTTP_POST, powerOff);
+  server.on("/api/power/on", HTTP_POST, handlePowerOn);
+  server.on("/api/power/off", HTTP_POST, handlePowerOff);
 
   server.begin();
   Serial.println("Webserver gestartet");
